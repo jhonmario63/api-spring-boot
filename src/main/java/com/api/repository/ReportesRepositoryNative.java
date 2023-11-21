@@ -87,7 +87,7 @@ public class ReportesRepositoryNative {
                 "usuario " +
                 "FROM reportes " +
                 "WHERE estado = 'Finalizado' " +
-                "AND (hora_fin_atencion - hora_llamado) > '00:05:00' " +
+                "AND (hora_fin_atencion - hora_llamado) > '00:05:50' " +
                 "AND fecha_creacion BETWEEN :fechaInicial AND :fechaFinal " +
                 "ORDER BY (hora_fin_atencion - hora_llamado) DESC; ";
 
