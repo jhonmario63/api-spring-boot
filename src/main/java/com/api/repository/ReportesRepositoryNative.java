@@ -105,6 +105,7 @@ public class ReportesRepositoryNative {
             estado.setIdentificacion((String) data[2]);
             estado.setNombreCliente((String) data[3]);
             estado.setTiempoGestion((Integer) util.formatearTiempoEnMinutos(data[4].toString()));
+            estado.setTiempoGestionHoras((String) util.formatearTiempo(data[4].toString()));
             estado.setOficina((String) data[5]);
             estado.setRegion((String) data[6]);
             estado.setSala((String) data[7]);
