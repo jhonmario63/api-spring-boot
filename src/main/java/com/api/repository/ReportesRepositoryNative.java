@@ -88,7 +88,8 @@ public class ReportesRepositoryNative {
                 "FROM reportes " +
                 "WHERE estado = 'Finalizado' " +
                 "AND (hora_fin_atencion - hora_llamado) > '00:05:00' " +
-                "AND fecha_creacion BETWEEN :fechaInicial AND :fechaFinal ";
+                "AND fecha_creacion BETWEEN :fechaInicial AND :fechaFinal " +
+                "ORDER BY (hora_fin_atencion - hora_llamado) DESC; ";
 
         NativeQuery query = (NativeQuery) entityManager.createNativeQuery(qry);
         query.setParameter("fechaInicial", request.getFechaInicial());
