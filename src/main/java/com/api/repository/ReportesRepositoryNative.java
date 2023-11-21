@@ -83,8 +83,8 @@ public class ReportesRepositoryNative {
                 "ser_mensaje_de_respuesta," +
                 "ser_numero_formulario," +
                 "ser_resultado_del_tramite," +
-                "tramite,"+
-                "usuario "+
+                "tramite," +
+                "usuario " +
                 "FROM reportes " +
                 "WHERE estado = 'Finalizado' " +
                 "AND (hora_fin_atencion - hora_llamado) > '00:05:00' " +
@@ -104,7 +104,7 @@ public class ReportesRepositoryNative {
             estado.setTipoCliente((String) data[1]);
             estado.setIdentificacion((String) data[2]);
             estado.setNombreCliente((String) data[3]);
-            estado.setTiempoGestion((String) util.formatearTiempo(data[4].toString()));
+            estado.setTiempoGestion((Integer) util.formatearTiempoEnMinutos(data[4].toString()));
             estado.setOficina((String) data[5]);
             estado.setRegion((String) data[6]);
             estado.setSala((String) data[7]);

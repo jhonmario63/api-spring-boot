@@ -18,7 +18,7 @@ public class TiempoAtencionResponse implements Serializable {
     private String tipoCliente;
     private String identificacion;
     private String nombreCliente;
-    private String tiempoGestion;
+    private Integer tiempoGestion;
     private String oficina;
     private String region;
     private String sala;
