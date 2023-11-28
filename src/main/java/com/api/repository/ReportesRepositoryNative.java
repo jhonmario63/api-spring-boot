@@ -26,7 +26,8 @@ public class ReportesRepositoryNative {
 
         String qry = "SELECT COALESCE(tramite, 'Desconocido') AS tramite, COUNT(*) AS cantidad " +
                 "FROM reportes " +
-                "WHERE fecha_creacion BETWEEN :fechaInicial AND :fechaFinal " +
+                "WHERE fecha_creacion >= :fechaInicial " +
+                "AND fecha_creacion <= :fechaFinal " +
                 "GROUP BY tramite " +
                 "ORDER BY COUNT(*) DESC;";
 
@@ -50,7 +51,8 @@ public class ReportesRepositoryNative {
 
         String qry = "SELECT COALESCE(estado, 'Desconocido') AS tramite, COUNT(*) AS estado " +
                 "FROM reportes " +
-                "WHERE fecha_creacion BETWEEN :fechaInicial AND :fechaFinal " +
+                "WHERE fecha_creacion >= :fechaInicial " +
+                "AND fecha_creacion <= :fechaFinal " +
                 "GROUP BY estado " +
                 "ORDER BY COUNT(*) DESC;";
 
@@ -88,7 +90,8 @@ public class ReportesRepositoryNative {
                 "FROM reportes " +
                 "WHERE estado = 'Finalizado' " +
                 "AND (hora_fin_atencion - hora_llamado) > '00:05:50' " +
-                "AND fecha_creacion BETWEEN :fechaInicial AND :fechaFinal " +
+                "AND fecha_creacion >= :fechaInicial " +
+                "AND fecha_creacion <= :fechaFinal " +
                 "ORDER BY (hora_fin_atencion - hora_llamado) DESC; ";
 
         NativeQuery query = (NativeQuery) entityManager.createNativeQuery(qry);
