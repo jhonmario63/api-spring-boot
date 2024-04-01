@@ -13,6 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "funcionarios")
 public class FuncionariosEntity implements Serializable {
 
     @Id
@@ -26,7 +27,7 @@ public class FuncionariosEntity implements Serializable {
     @Column(name = "apellidos", length = 255, nullable = false)
     private String apellidos;
 
-    @Column(name = "identificacion", length = 50, nullable = false)
+    @Column(name = "identificacion", length = 50, nullable = false, unique = true)
     private String identificacion;
 
     @Column(name = "celular", length = 255, nullable = true)
@@ -36,7 +37,7 @@ public class FuncionariosEntity implements Serializable {
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "id") // Nombre de la columna de clave foránea en la tabla tramites_entity
-    private TramitesEntity tipoTramite;
+    @JoinColumn(name = "id_tipo_tramite") // Nombre de la columna de clave foránea en la tabla tramites_entity
+    private TramitesEntity idTipoTramite;
 
 }
