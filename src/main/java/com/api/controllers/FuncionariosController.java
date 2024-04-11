@@ -2,6 +2,7 @@ package com.api.controllers;
 
 import com.api.entities.entity.FuncionariosEntity;
 import com.api.repositories.IFuncionariosRepository;
+import com.api.services.interfaces.FuncionariosInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,18 +18,20 @@ public class FuncionariosController {
     @Autowired
     private IFuncionariosRepository iFuncionariosRepository;
 
+    @Autowired
+    private FuncionariosInterface funcionariosInterface;
+
+
     // Servicio Post para crear un funcionario
     @PostMapping()
     public ResponseEntity<?> postFuncionarios(@RequestBody FuncionariosEntity object) {
-        try {
-            iFuncionariosRepository.save(object);
-            return ResponseEntity.ok("{\"resultado\":\"OK\"}");
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("{\"error\":" + ex.getMessage() + ".\"}");
-        }
+        return ResponseEntity.ok(funcionariosInterface.postFuncionarios(object));
     }
+
+
+
+
+
 
     // Servicio Get para listar los funcionarios
     @GetMapping()
