@@ -1,8 +1,8 @@
 package com.api.controllers;
 
 
-import com.api.models.entity.CitasEntity;
-import com.api.repository.CitasRepository;
+import com.api.entities.entity.CitasEntity;
+import com.api.repositories.ICitasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,16 +12,16 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/v1")
+@RequestMapping("/v1/citas")
 public class CitasController {
 
     @Autowired
-    private CitasRepository citasRepository;
+    private ICitasRepository ICitasRepository;
 
     @PostMapping("/import")
     public ResponseEntity<?> saveReporteAll(@RequestBody List<CitasEntity> reportes) {
         try {
-            citasRepository.saveAll(reportes);
+            ICitasRepository.saveAll(reportes);
             return ResponseEntity.ok("{\"resultado\":\"OK\"}");
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -29,6 +29,7 @@ public class CitasController {
                     .body("{\"error\":\"Ocurrió un error al importar.\"}");
         }
     }
+
 
 //
 //    @PostMapping("/resumen")

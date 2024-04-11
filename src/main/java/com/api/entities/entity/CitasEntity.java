@@ -1,25 +1,17 @@
-package com.api.models.entity;
+package com.api.entities.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "citas", indexes = {
         @Index(name = "idx_fecha_creacion", columnList = "fecha_creacion"),
         @Index(name = "idx_fecha_turno", columnList = "fecha_turno"),
-        @Index(name = "idx_id_turno", columnList = "id_turno"),
-        @Index(name = "idx_identificacion", columnList = "identificacion")})
-public class CitasEntity implements Serializable {
+        @Index(name = "idx_id_turno", columnList = "id_turno")})
+public class CitasEntity  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,26 +39,21 @@ public class CitasEntity implements Serializable {
     @Column(name = "telefono", length = 20, nullable = true)
     private String telefono;
 
-    @Column(name = "celular", length = 15, nullable = false)
+    @Column(name = "celular", length = 15, nullable = true)
     private String celular;
 
     @Column(name = "ciudad_residencia", length = 255, nullable = false)
     private String ciudadResidencia;
 
-    @Column(name = "clase_tramite", length = 255, nullable = false)
-    private String claseTramite;
+    @Column(name = "id_tipo_persona", nullable = false)
+    private Integer idTipoPersona;
 
-    @Column(name = "funcionario", length = 255, nullable = false)
-    private String funcionario;
-
-    @Column(name = "email_funcionario", length = 255, nullable = false)
-    private String emailFuncionario;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_funcionario", nullable = true)
+    private FuncionariosEntity idFuncionario;
 
     @Column(name = "fecha_creacion", nullable = false)
     private Timestamp fechaCreacion;
-
-    @Column(name = "estado", nullable = false)
-    private boolean estado;
 
     @PrePersist
     protected void onCreate() {
