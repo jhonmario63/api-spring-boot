@@ -1,5 +1,6 @@
 package com.api.controllers;
 
+import com.api.entities.dto.response.ApiResponse;
 import com.api.entities.entity.FuncionariosEntity;
 import com.api.repositories.IFuncionariosRepository;
 import com.api.services.interfaces.FuncionariosInterface;
@@ -21,67 +22,32 @@ public class FuncionariosController {
     @Autowired
     private FuncionariosInterface funcionariosInterface;
 
-
     // Servicio Post para crear un funcionario
     @PostMapping()
-    public ResponseEntity<?> postFuncionarios(@RequestBody FuncionariosEntity object) {
-        return ResponseEntity.ok(funcionariosInterface.postFuncionarios(object));
+    public ResponseEntity<ApiResponse> postFuncionarios(@RequestBody FuncionariosEntity object) {
+        ApiResponse response = funcionariosInterface.postFuncionarios(object);
+        return ResponseEntity.status(response.getStatus()).body(response);
     }
 
-
-
-
-
-
     // Servicio Get para listar los funcionarios
-    @GetMapping()
-    public ResponseEntity<?> getFuncionariosAll() {
-        try {
-            return ResponseEntity.ok(iFuncionariosRepository.findAll());
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("{\"error\":" + ex.getMessage() + ".\"}");
-        }
-
+    @GetMapping("/all")
+    public ResponseEntity<ApiResponse> getFuncionariosAll() {
+        ApiResponse response = funcionariosInterface.getFuncionariosAll();
+        return ResponseEntity.status(response.getStatus()).body(response);
     }
 
     // Servicio Get para listar funcionario por ID
-    @GetMapping("{id}")
-    public ResponseEntity<?> getFuncionariosId(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(iFuncionariosRepository.findById(id));
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("{\"error\":" + ex.getMessage() + ".\"}");
-        }
-
+    @GetMapping()
+    public ResponseEntity<ApiResponse> getFuncionariosId(@RequestParam Long id) {
+        ApiResponse response = funcionariosInterface.getFuncionariosId(id);
+        return ResponseEntity.status(response.getStatus()).body(response);
     }
 
     // Servicio Put para Actualizar un funcionario por ID
     @PutMapping()
-    public ResponseEntity<?> putFuncionarios( @RequestBody FuncionariosEntity object) {
-        try {
-            Optional<FuncionariosEntity> funcionario = iFuncionariosRepository.findById(object.getId());
-            if (funcionario.isPresent()) {
-                FuncionariosEntity funcionarioMod = funcionario.get();
-                funcionarioMod.setNombres(object.getNombres());
-                funcionarioMod.setApellidos(object.getApellidos());
-                funcionarioMod.setCelular(object.getCelular());
-                funcionarioMod.setEmail(object.getEmail());
-                funcionarioMod.setIdentificacion(object.getIdentificacion());
-                funcionarioMod.setIdTipoPersona(object.getIdTipoPersona());
-                iFuncionariosRepository.save(funcionarioMod);
-                return ResponseEntity.ok("{\"resultado\":\"OK\"}");
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("{\"error\":" + ex.getMessage() + ".\"}");
-        }
+    public ResponseEntity<ApiResponse> putFuncionarios(@RequestBody FuncionariosEntity object) {
+        ApiResponse response = funcionariosInterface.putFuncionarios(object);
+        return ResponseEntity.status(response.getStatus()).body(response);
     }
 
 }
